@@ -1,0 +1,96 @@
+package xyz.theunitedwolves.theunitedtdz.blocks;
+
+import net.minecraft.block.*;
+import net.minecraft.block.material.Material;
+import net.minecraft.state.DirectionProperty;
+import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.shapes.IBooleanFunction;
+import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.world.IBlockReader;
+import net.minecraftforge.common.ToolType;
+
+import java.util.stream.Stream;
+
+public class Table extends Block {
+
+    @Override
+    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+        builder.add(BlockStateProperties.FACING);
+    }
+
+    private static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
+
+    private static final VoxelShape SHAPE_N = Stream.of(
+            Block.makeCuboidShape(14, 0, 14, 16, 14, 16),            Block.makeCuboidShape(0, 0, 14, 2, 14, 16),
+            Block.makeCuboidShape(14, 0, 0, 16, 14, 2),            Block.makeCuboidShape(0, 0, 0, 2, 14, 2),
+            Block.makeCuboidShape(3.8, 2.5, 0.25, 5.3, 9.5, 1.75),            Block.makeCuboidShape(3.8, 2.5, 0.25, 5.3, 9.5, 1.75),
+            Block.makeCuboidShape(3.8, 2.5, 14.25, 5.3, 9.5, 15.75),            Block.makeCuboidShape(3.8, 2.5, 14.25, 5.3, 9.5, 15.75),
+            Block.makeCuboidShape(5.8, 14.5, 0.25, 7.3, 21.5, 1.75),            Block.makeCuboidShape(5.8, 14.5, 0.25, 7.3, 21.5, 1.75),
+            Block.makeCuboidShape(5.8, 14.5, 14.25, 7.3, 21.5, 15.75),            Block.makeCuboidShape(5.8, 14.5, 14.25, 7.3, 21.5, 15.75),
+            Block.makeCuboidShape(0, 14, 0, 16, 16, 16)
+    ).reduce((v1, v2) -> {return VoxelShapes.combineAndSimplify(v1, v2, IBooleanFunction.OR);}).get();
+
+    private static final VoxelShape SHAPE_E = Stream.of(
+            Block.makeCuboidShape(14, 0, 14, 16, 14, 16),            Block.makeCuboidShape(0, 0, 14, 2, 14, 16),
+            Block.makeCuboidShape(14, 0, 0, 16, 14, 2),            Block.makeCuboidShape(0, 0, 0, 2, 14, 2),
+            Block.makeCuboidShape(3.8, 2.5, 0.25, 5.3, 9.5, 1.75),            Block.makeCuboidShape(3.8, 2.5, 0.25, 5.3, 9.5, 1.75),
+            Block.makeCuboidShape(3.8, 2.5, 14.25, 5.3, 9.5, 15.75),            Block.makeCuboidShape(3.8, 2.5, 14.25, 5.3, 9.5, 15.75),
+            Block.makeCuboidShape(5.8, 14.5, 0.25, 7.3, 21.5, 1.75),            Block.makeCuboidShape(5.8, 14.5, 0.25, 7.3, 21.5, 1.75),
+            Block.makeCuboidShape(5.8, 14.5, 14.25, 7.3, 21.5, 15.75),            Block.makeCuboidShape(5.8, 14.5, 14.25, 7.3, 21.5, 15.75),
+            Block.makeCuboidShape(0, 14, 0, 16, 16, 16)
+    ).reduce((v1, v2) -> {return VoxelShapes.combineAndSimplify(v1, v2, IBooleanFunction.OR);}).get();
+
+    private static final VoxelShape SHAPE_S = Stream.of(
+            Block.makeCuboidShape(14, 0, 14, 16, 14, 16),            Block.makeCuboidShape(0, 0, 14, 2, 14, 16),
+            Block.makeCuboidShape(14, 0, 0, 16, 14, 2),            Block.makeCuboidShape(0, 0, 0, 2, 14, 2),
+            Block.makeCuboidShape(3.8, 2.5, 0.25, 5.3, 9.5, 1.75),            Block.makeCuboidShape(3.8, 2.5, 0.25, 5.3, 9.5, 1.75),
+            Block.makeCuboidShape(3.8, 2.5, 14.25, 5.3, 9.5, 15.75),            Block.makeCuboidShape(3.8, 2.5, 14.25, 5.3, 9.5, 15.75),
+            Block.makeCuboidShape(5.8, 14.5, 0.25, 7.3, 21.5, 1.75),            Block.makeCuboidShape(5.8, 14.5, 0.25, 7.3, 21.5, 1.75),
+            Block.makeCuboidShape(5.8, 14.5, 14.25, 7.3, 21.5, 15.75),            Block.makeCuboidShape(5.8, 14.5, 14.25, 7.3, 21.5, 15.75),
+            Block.makeCuboidShape(0, 14, 0, 16, 16, 16)
+    ).reduce((v1, v2) -> {return VoxelShapes.combineAndSimplify(v1, v2, IBooleanFunction.OR);}).get();
+
+    private static final VoxelShape SHAPE_W = Stream.of(
+            Block.makeCuboidShape(14, 0, 14, 16, 14, 16),            Block.makeCuboidShape(0, 0, 14, 2, 14, 16),
+            Block.makeCuboidShape(14, 0, 0, 16, 14, 2),            Block.makeCuboidShape(0, 0, 0, 2, 14, 2),
+            Block.makeCuboidShape(3.8, 2.5, 0.25, 5.3, 9.5, 1.75),            Block.makeCuboidShape(3.8, 2.5, 0.25, 5.3, 9.5, 1.75),
+            Block.makeCuboidShape(3.8, 2.5, 14.25, 5.3, 9.5, 15.75),            Block.makeCuboidShape(3.8, 2.5, 14.25, 5.3, 9.5, 15.75),
+            Block.makeCuboidShape(5.8, 14.5, 0.25, 7.3, 21.5, 1.75),            Block.makeCuboidShape(5.8, 14.5, 0.25, 7.3, 21.5, 1.75),
+            Block.makeCuboidShape(5.8, 14.5, 14.25, 7.3, 21.5, 15.75),            Block.makeCuboidShape(5.8, 14.5, 14.25, 7.3, 21.5, 15.75),
+            Block.makeCuboidShape(0, 14, 0, 16, 16, 16)
+    ).reduce((v1, v2) -> {return VoxelShapes.combineAndSimplify(v1, v2, IBooleanFunction.OR);}).get();
+
+    public Table() {
+        super(AbstractBlock.Properties.create(Material.WOOD)
+                .hardnessAndResistance(3.5f, 4.0f)
+                .sound(SoundType.WOOD)
+                .harvestLevel(0)
+                .harvestTool(ToolType.AXE)
+        );
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+        switch (state.get(FACING)) {
+            case NORTH:
+                return SHAPE_N;
+            case EAST:
+                return SHAPE_E;
+            case SOUTH:
+                return SHAPE_S;
+            case WEST:
+                return SHAPE_W;
+            default:
+                return SHAPE_N;
+        }
+    }
+
+    @Override
+    public float getAmbientOcclusionLightValue(BlockState state, IBlockReader worldIn, BlockPos pos) {
+        return 0.6f;
+    }
+}
